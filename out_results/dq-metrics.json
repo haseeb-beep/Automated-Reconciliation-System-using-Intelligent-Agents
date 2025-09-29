@@ -1,0 +1,24 @@
+{
+  "ledger": {
+    "rows": 5505,
+    "columns": 44,
+    "missing_values": 79531,
+    "missing_ratio": 0.3283420031376421,
+    "duplicate_rows": 0,
+    "min_date": null,
+    "max_date": null,
+    "amount_min": null,
+    "amount_max": null
+  },
+  "bank": {
+    "rows": 1221,
+    "columns": 56,
+    "missing_values": 29457,
+    "missing_ratio": 0.4308090558090495,
+    "duplicate_rows": 0,
+    "min_date": null,
+    "max_date": null,
+    "amount_min": null,
+    "amount_max": null
+  }
+}

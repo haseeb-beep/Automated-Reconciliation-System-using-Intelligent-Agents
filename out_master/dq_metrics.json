@@ -1,0 +1,16 @@
+{
+  "ledger": {
+    "rows": 5505,
+    "cols": 49,
+    "missing_cells": 79532,
+    "missing_ratio": 0.2948414243081418,
+    "duplicate_rows": 0
+  },
+  "bank": {
+    "rows": 1221,
+    "cols": 61,
+    "missing_cells": 29457,
+    "missing_ratio": 0.3954968381197836,
+    "duplicate_rows": 0
+  }
+}
