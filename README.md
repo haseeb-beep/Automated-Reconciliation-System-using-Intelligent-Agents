@@ -1,70 +1,81 @@
-# Automated Reconciliation System Using Intelligent Agents
+Overview
 
-## 📌 Problem Statement
-The current reconciliation process relies heavily on **manual intervention**, **static rule-based matching**, and **predetermined parameters** that require constant human oversight. This results in:
-- Operational inefficiencies
-- Increased error rates
-- Inability to adapt to evolving data patterns
+This project automates reconciliation between ledger and bank data using intelligent agents. It reduces manual effort by combining rule-based heuristics with an optional machine learning model (Gradient Boosting) that adapts thresholds based on past matches. The system categorizes unmatched cases, routes them to the right teams, and produces a full audit trail for transparency.
 
-This project develops an **intelligent, agent-based reconciliation system** that automatically:
-- Selects optimal parameters
-- Adapts to changing data characteristics
-- Minimizes human intervention
-- Maintains accuracy and compliance
+⚙️ Requirements
 
----
+Python 3.8+
 
-## 🚀 Project Scope
-The system is designed as a **multi-agent system** with the following capabilities:
+Install dependencies:
 
-- **Machine Learning Agent** → Determines optimal matching thresholds  
-- **Dynamic Tolerance Agent** → Adjusts tolerance based on data quality metrics  
-- **Reconciliation Engine** → Performs matching (exact, fuzzy, and pattern-based)  
-- **Exception Management Agent** → Routes unmatched transactions intelligently  
-- **Audit & Explainability Agent** → Provides transparent logs and decision tracking  
+pip install pandas numpy scikit-learn openpyxl
 
----
+🧩 Components
+Part 1 – Baseline Matching
 
-## ⚙️ Features
-- Multi-dimensional matching (counterparty, references, amounts, dates)
-- Hierarchical 1:1 reconciliation process
-- Adaptive thresholds with machine learning
-- Exception categorization & routing to queues
-- Data quality monitoring
-- Comprehensive audit trail
+Matches records using fixed rules (amount/date tolerance, name/reference similarity).
 
+Part 2 – Data Quality & Adaptive Thresholds
 
----
+Loosens or tightens thresholds depending on data quality (missing values, duplicates).
 
-## 📊 Outputs
-After running the system, the following outputs are generated in `./out_results`:
+Part 3 – Automated Matching with ML (Optional)
 
-- `matched.xlsx` → Matched transactions  
-- `unmatched_ledger.xlsx` → Ledger entries not reconciled  
-- `unmatched_bank.xlsx` → Bank entries not reconciled  
-- `exceptions.csv` → Categorized unmatched items  
-- `routed_queues/` → Routed exceptions per queue/team  
-- `audit.jsonl` → Explainable AI decision logs  
-- `dq_metrics.json` → Data quality metrics  
-- `summary.json` → Overall reconciliation statistics  
+Trains a Gradient Boosting model using labels.csv (1 = match, 0 = not match).
 
----
+Learns the best probability cutoff and applies it for smarter matching.
 
-## ▶️ How to Run
+Part 4 – Exception Management
 
-### . Clone the repo
-```bash
-git clone https://github.com/MaryamIjaz-ai/automated-reconciliation-system.git
-cd automated-reconciliation-system
+Categorizes unmatched items (AMOUNT_MISMATCH, DATE_MISMATCH, etc.).
 
-. Run full system (Part 5 orchestration)
----
-python part5_master_reconcile.py --a Customer_Ledger_Entries_FULL.xlsx --b KH_Bank.xlsx --out ./out_results
+Routes them into queues (Finance, Ops, Payments).
 
+Part 5 – Master Orchestration
 
+Runs the full pipeline: data quality → matching → exception handling → audit.
 
-👩‍💻 Author
+Generates final outputs in one place.
 
-Maryam Ijaz
-Automated Reconciliation System using Intelligent Agents
+📊 Outputs
 
+After running, you’ll find results in ./out_results:
+
+matched.csv → Confirmed matches
+
+unmatched_ledger.csv → Ledger rows not reconciled
+
+unmatched_bank.csv → Bank rows not reconciled
+
+exceptions.csv → Categorized exceptions
+
+routed_queues/ → Team-specific exception files
+
+audit.jsonl → Explainable AI decision logs
+
+dq_metrics.json → Data quality metrics
+
+summary.json → Overall reconciliation statistics
+
+▶️ Usage
+Run with heuristics only
+python master_reconcile.py --a Customer_Ledger_Entries_FULL.xlsx --b KH_Bank.xlsx --out ./out_results
+
+Run with ML training (optional)
+python master_reconcile.py --a Customer_Ledger_Entries_FULL.xlsx --b KH_Bank.xlsx --out ./out_results --labels labels.csv
+
+✨ Key Features
+
+Multi-dimensional matching (amounts, dates, references, names)
+
+Adaptive thresholds with data quality feedback
+
+Machine learning agent (Gradient Boosting) for smarter decisions
+
+Exception categorization & routing to queues
+
+Transparent audit trail for compliance
+
+👨‍💻 Author
+
+Syed Haseeb Haider
